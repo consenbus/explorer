@@ -1,118 +1,112 @@
-import React, { Component } from "react";
-import {
-  Container,
-  Divider,
-  Dropdown,
-  Grid,
-  Header,
-  Image,
-  List,
-  Menu,
-  Segment
-} from "semantic-ui-react";
-
+import React from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import logo from "../../assets/img/logo-white.svg";
+import { withStyles } from "material-ui/styles";
+import AppBar from "material-ui/AppBar";
+import Toolbar from "material-ui/Toolbar";
+import Typography from "material-ui/Typography";
+import IconButton from "material-ui/IconButton";
+import AccountCircle from "material-ui-icons/AccountCircle";
+import Switch from "material-ui/Switch";
+import { FormControlLabel, FormGroup } from "material-ui/Form";
+import Menu, { MenuItem } from "material-ui/Menu";
+import LogoIcon from "mdi-material-ui/Blur";
 
-class Layout extends Component {
+const styles = {
+  root: {
+    flexGrow: 1
+  },
+  flex: {
+    flex: 1
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 0
+  }
+};
+
+class Layout extends React.Component {
+  state = {
+    auth: true,
+    anchorEl: null
+  };
+
+  handleChange = (event, checked) => {
+    this.setState({ auth: checked });
+  };
+
+  handleMenu = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
   render() {
+    const { classes, children } = this.props;
+    const { auth, anchorEl } = this.state;
+    const open = Boolean(anchorEl);
+
     return (
-      <div>
-        <Menu fixed="top" inverted color="blue">
-          <Container>
-            <Menu.Item as={Link} to="/" header>
-              <Image size="mini" src={logo} style={{ marginRight: "1.5em" }} />
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="Menu"
+              component={Link}
+              to="/"
+            >
+              <LogoIcon />
+            </IconButton>
+            <Typography
+              variant="subtitle"
+              color="inherit"
+              className={classes.flex}
+            >
               CONSENBUS
-            </Menu.Item>
-            <Menu.Item as={Link} to="/">Home</Menu.Item>
-
-            <Dropdown item simple text="Network Stats">
-              <Dropdown.Menu>
-                <Dropdown.Item>Blocks</Dropdown.Item>
-                <Dropdown.Item>Representatives</Dropdown.Item>
-                {/*<Dropdown.Divider />
-                <Dropdown.Header>Header Item</Dropdown.Header>
-                <Dropdown.Item>
-                  <i className="dropdown icon" />
-                  <span className="text">Submenu</span>
-                  <Dropdown.Menu>
-                    <Dropdown.Item>List Item</Dropdown.Item>
-                    <Dropdown.Item>List Item</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown.Item>
-                <Dropdown.Item>List Item</Dropdown.Item>*/}
-              </Dropdown.Menu>
-            </Dropdown>
-          </Container>
-        </Menu>
-
-        <Container text style={{ marginTop: "7em" }}>
-          {this.props.children}
-        </Container>
-
-        <Segment
-          inverted
-          vertical
-          style={{ margin: "5em 0em 0em", padding: "5em 0em" }}
-        >
-          <Container textAlign="center">
-            <Grid divided inverted stackable>
-              <Grid.Row>
-                <Grid.Column width={3}>
-                  <Header inverted as="h4" content="Group 1" />
-                  <List link inverted>
-                    <List.Item as="a">Link One</List.Item>
-                    <List.Item as="a">Link Two</List.Item>
-                    <List.Item as="a">Link Three</List.Item>
-                    <List.Item as="a">Link Four</List.Item>
-                  </List>
-                </Grid.Column>
-                <Grid.Column width={3}>
-                  <Header inverted as="h4" content="Group 2" />
-                  <List link inverted>
-                    <List.Item as="a">Link One</List.Item>
-                    <List.Item as="a">Link Two</List.Item>
-                    <List.Item as="a">Link Three</List.Item>
-                    <List.Item as="a">Link Four</List.Item>
-                  </List>
-                </Grid.Column>
-                <Grid.Column width={3}>
-                  <Header inverted as="h4" content="Group 3" />
-                  <List link inverted>
-                    <List.Item as="a">Link One</List.Item>
-                    <List.Item as="a">Link Two</List.Item>
-                    <List.Item as="a">Link Three</List.Item>
-                    <List.Item as="a">Link Four</List.Item>
-                  </List>
-                </Grid.Column>
-                <Grid.Column width={3}>
-                  <Header inverted as="h4" content="Footer Header" />
-                  <p>
-                    Extra space for a call to action inside the footer that
-                    could help re-engage users.
-                  </p>
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-
-            <Divider inverted section />
-            <Image
-              centered
-              size="tiny"
-              src={logo}
-              style={{ marginBottom: "2em" }}
-            />
-            <List horizontal inverted divided link>
-              <List.Item as="a" href="#">Site Map</List.Item>
-              <List.Item as="a" href="#">Contact Us</List.Item>
-              <List.Item as="a" href="#">Terms and Conditions</List.Item>
-              <List.Item as="a" href="#">Privacy Policy</List.Item>
-            </List>
-          </Container>
-        </Segment>
+            </Typography>
+            {auth && (
+              <div>
+                <IconButton
+                  aria-owns={open ? "menu-appbar" : null}
+                  aria-haspopup="true"
+                  onClick={this.handleMenu}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right"
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right"
+                  }}
+                  open={open}
+                  onClose={this.handleClose}
+                >
+                  <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                  <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                </Menu>
+              </div>
+            )}
+          </Toolbar>
+        </AppBar>
+        {children}
       </div>
     );
   }
 }
 
-export default Layout;
+Layout.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(Layout);

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Header, Button, Statistic } from "semantic-ui-react";
-
 import { observer, inject } from "mobx-react";
+import Button from "material-ui/Button";
 import Layout from "./_Layout";
 
 class Example extends Component {
@@ -25,12 +24,14 @@ class Example extends Component {
   render() {
     return (
       <Layout>
-        <Header as="h1">Mobx example</Header>
-        <Statistic>
-          <Statistic.Value>{this.props.example.timer}</Statistic.Value>
-          <Statistic.Label>SECORNDS</Statistic.Label>
-        </Statistic>
-        <p><Button primary onClick={this.handleReset}>Reset</Button></p>
+        <h1>Mobx example</h1>
+        <h2>{this.props.example.timer}</h2>
+        <p>SECORNDS</p>
+        <p>
+          <Button variant="raised" color="primary" onClick={this.handleReset}>
+            Reset
+          </Button>
+        </p>
       </Layout>
     );
   }
