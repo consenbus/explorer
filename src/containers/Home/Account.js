@@ -6,21 +6,24 @@ import Paper from "material-ui/Paper";
 import Typography from "material-ui/Typography";
 
 import Layout from "./_Layout";
-import Latest from "./Index/_Latest";
-import Stats from "./Index/_Stats";
 import appStyle from "../../variables/styles/appStyle";
 import yellow from "material-ui/colors/yellow";
 
-class Index extends Component {
+import AccountShow from "./Account/_Show";
+import AccountPending from "./Account/_Pending";
+import AccountCompleted from "./Account/_Completed";
+
+class Account extends Component {
   render() {
     const { classes } = this.props;
     return (
       <Layout>
-        <Stats />
-        <Latest />
+        <AccountShow />
+        <AccountPending />
+        <AccountCompleted />
       </Layout>
     );
   }
 }
 
-export default withStyles(appStyle)(Index);
+export default withStyles(appStyle)(Account);

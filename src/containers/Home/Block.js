@@ -6,21 +6,19 @@ import Paper from "material-ui/Paper";
 import Typography from "material-ui/Typography";
 
 import Layout from "./_Layout";
-import Latest from "./Index/_Latest";
-import Stats from "./Index/_Stats";
+import BlockShow from "./Block/_Show";
 import appStyle from "../../variables/styles/appStyle";
 import yellow from "material-ui/colors/yellow";
 
-class Index extends Component {
+class Block extends Component {
   render() {
-    const { classes } = this.props;
+    const { classes, ...rest } = this.props;
     return (
       <Layout>
-        <Stats />
-        <Latest />
+        <BlockShow {...rest} />
       </Layout>
     );
   }
 }
 
-export default withStyles(appStyle)(Index);
+export default withStyles(appStyle)(Block);

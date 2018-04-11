@@ -6,11 +6,10 @@ import AppBar from "material-ui/AppBar";
 import Toolbar from "material-ui/Toolbar";
 import Typography from "material-ui/Typography";
 import IconButton from "material-ui/IconButton";
-import AccountCircle from "material-ui-icons/AccountCircle";
-import Switch from "material-ui/Switch";
-import { FormControlLabel, FormGroup } from "material-ui/Form";
+import MenuIcon from "material-ui-icons/Menu";
 import Menu, { MenuItem } from "material-ui/Menu";
 import LogoIcon from "mdi-material-ui/Blur";
+import AppSearch from "./_Search";
 
 const styles = {
   root: {
@@ -18,6 +17,10 @@ const styles = {
   },
   flex: {
     flex: 1
+  },
+  logo: {
+    color: "white",
+    textDecoration: "none"
   },
   menuButton: {
     marginLeft: -12,
@@ -62,12 +65,15 @@ class Layout extends React.Component {
               <LogoIcon />
             </IconButton>
             <Typography
-              variant="subtitle"
+              variant="subheading"
               color="inherit"
               className={classes.flex}
             >
-              CONSENBUS
+              <Link to="/" className={classes.logo}>
+                CONSENBUS
+              </Link>
             </Typography>
+            <AppSearch />
             {auth && (
               <div>
                 <IconButton
@@ -76,7 +82,7 @@ class Layout extends React.Component {
                   onClick={this.handleMenu}
                   color="inherit"
                 >
-                  <AccountCircle />
+                  <MenuIcon />
                 </IconButton>
                 <Menu
                   id="menu-appbar"

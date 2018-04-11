@@ -1,4 +1,10 @@
-const styles = theme => ({
+// ##############################
+// // // Content styles
+// #############################
+
+// import { drawerWidth, transition, container } from "../styles";
+
+const contentStyle = theme => ({
   root: {
     fontFamily: theme.typography.fontFamily,
     fontSize: 16,
@@ -82,7 +88,7 @@ const styles = theme => ({
     },
     "& table": {
       width: "100%",
-      display: "block",
+      // display: "block",
       overflowX: "auto",
       borderCollapse: "collapse",
       borderSpacing: 0,
@@ -167,12 +173,7 @@ const styles = theme => ({
     "& img": {
       maxWidth: "100%"
     }
-  },
-  paper: {
-    margin: theme.spacing.unit * 2,
-    padding: theme.spacing.unit * 2,
-    color: theme.palette.text.secondary
   }
 });
 
-export default styles;
+export default contentStyle;
